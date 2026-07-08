@@ -28,7 +28,8 @@ import elieoko.hoshi.butterfly.core.ui.components.ButterflyBackground
 @Composable
 fun NavigationRoot(modifier: Modifier = Modifier) {
     var onboardingFinished by remember { mutableStateOf(false) }
-    var selectedRoute by remember { mutableStateOf<Route>(Route.Home) }
+    var selectedRouteName by remember { mutableStateOf(Route.Home.name) }
+    val selectedRoute = Route.entries.firstOrNull { it.name == selectedRouteName } ?: Route.Home
 
     if (!onboardingFinished) {
         Onboarding(onFinish = { onboardingFinished = true })
@@ -43,12 +44,14 @@ fun NavigationRoot(modifier: Modifier = Modifier) {
                 modifier = Modifier.navigationBarsPadding(),
                 containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f),
             ) {
-                Route.mainItems.forEach { route ->
+                for (route in Route.entries) {
+                    val routeEmoji = route.emoji
+                    val routeLabel = route.label
                     NavigationBarItem(
                         selected = selectedRoute == route,
-                        onClick = { selectedRoute = route },
-                        icon = { Text(route.emoji) },
-                        label = { Text(route.label) },
+                        onClick = { selectedRouteName = route.name },
+                        icon = { Text(routeEmoji) },
+                        label = { Text(routeLabel) },
                         alwaysShowLabel = false,
                     )
                 }
@@ -64,9 +67,9 @@ fun NavigationRoot(modifier: Modifier = Modifier) {
             Crossfade(targetState = selectedRoute, label = "app-route") { route ->
                 when (route) {
                     Route.Home -> Home(
-                        onOpenGroups = { selectedRoute = Route.Group },
-                        onOpenAssistant = { selectedRoute = Route.Assistant },
-                        onOpenAbout = { selectedRoute = Route.About },
+                        onOpenGroups = { selectedRouteName = Route.Group.name },
+                        onOpenAssistant = { selectedRouteName = Route.Assistant.name },
+                        onOpenAbout = { selectedRouteName = Route.About.name },
                     )
                     Route.Bible -> Bible()
                     Route.Plan -> Plan()
