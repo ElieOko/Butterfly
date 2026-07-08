@@ -20,15 +20,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import butterfly.shared.generated.resources.Res
+import butterfly.shared.generated.resources.bible
 import butterfly.shared.generated.resources.butterfly
 import butterfly.shared.generated.resources.couple
-import butterfly.shared.generated.resources.pray
 import elieoko.hoshi.butterfly.core.ui.components.ButterflySpacing
 import elieoko.hoshi.butterfly.core.ui.components.GlassCard
 import elieoko.hoshi.butterfly.core.ui.components.ImmersiveBackground
@@ -50,7 +49,7 @@ private val onboardingSteps = listOf(
     OnboardingStep(
         title = "Bible, notes & méditation",
         subtitle = "Des espaces clairs, immersifs et cohérents pour ta discipline quotidienne.",
-        image = Res.drawable.pray,
+        image = Res.drawable.bible,
     ),
     OnboardingStep(
         title = "Communauté & compte",

@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import butterfly.shared.generated.resources.Res
+import butterfly.shared.generated.resources.bible
+import butterfly.shared.generated.resources.books
 import butterfly.shared.generated.resources.hand
 import butterfly.shared.generated.resources.pray
 import elieoko.hoshi.butterfly.core.ui.components.ButterflyPage
@@ -33,7 +35,7 @@ fun Bible() {
     ButterflyPage(
         title = "Bible",
         subtitle = "Lecture claire, recherche rapide, surlignage et partage.",
-        background = Res.drawable.hand,
+        background = Res.drawable.bible,
     ) {
         OutlinedTextField(
             value = query,
@@ -84,7 +86,7 @@ fun Bible() {
             title = "Philippiens 4:6-7",
             subtitle = "Ne vous inquiétez de rien; présentez vos besoins à Dieu...",
             height = 180.dp,
-            image = Res.drawable.hand,
+            image = Res.drawable.books,
             badge = "Espérance",
             onClick = { feedback.notify("Passage ajouté aux favoris") },
         )
@@ -93,7 +95,7 @@ fun Bible() {
             title = "Psaume 23",
             subtitle = "L'Éternel est mon berger: je ne manquerai de rien.",
             height = 160.dp,
-            image = Res.drawable.pray,
+            image = Res.drawable.hand,
             badge = "Consolation",
             onClick = { feedback.toast("Lecture démarrée") },
         )

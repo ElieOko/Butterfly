@@ -43,6 +43,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import butterfly.shared.generated.resources.Res
+import butterfly.shared.generated.resources.bible
+import butterfly.shared.generated.resources.books
 import butterfly.shared.generated.resources.butterfly
 import butterfly.shared.generated.resources.couple
 import butterfly.shared.generated.resources.hand
@@ -289,9 +291,11 @@ fun MetricChip(label: String, value: String) {
     }
 }
 
-fun butterflyImageFor(index: Int): DrawableResource = when (index % 4) {
+fun butterflyImageFor(index: Int): DrawableResource = when (index % 6) {
     0 -> Res.drawable.butterfly
     1 -> Res.drawable.pray
     2 -> Res.drawable.couple
-    else -> Res.drawable.hand
+    3 -> Res.drawable.hand
+    4 -> Res.drawable.bible
+    else -> Res.drawable.books
 }
