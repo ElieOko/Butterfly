@@ -23,7 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -60,7 +60,7 @@ private val onboardingSteps = listOf(
 fun Onboarding(
     onFinish: () -> Unit,
 ) {
-    var stepIndex by rememberSaveable { mutableStateOf(0) }
+    var stepIndex by remember { mutableStateOf(0) }
     val isLastStep = stepIndex == onboardingSteps.lastIndex
 
     Box(modifier = Modifier.fillMaxSize()) {

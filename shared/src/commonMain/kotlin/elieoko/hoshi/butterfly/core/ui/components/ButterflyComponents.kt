@@ -20,13 +20,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -117,16 +115,13 @@ fun ButterflyHeroCard() {
                     modifier = Modifier.size(34.dp),
                 )
             }
-            Column(modifier = Modifier.weight(1f)) {
+            Column(modifier = Modifier.fillMaxWidth()) {
                 Text("Butterfly", color = Color.White, fontWeight = FontWeight.Bold)
                 Text(
                     "Croissance spirituelle, en solo et en communaute.",
                     color = Color.White.copy(alpha = 0.9f),
                     style = MaterialTheme.typography.bodySmall,
                 )
-            }
-            Button(onClick = {}) {
-                Text("Prier")
             }
         }
     }

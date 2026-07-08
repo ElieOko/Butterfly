@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import elieoko.hoshi.butterfly.app.about.application.ui.About
@@ -28,7 +27,7 @@ import elieoko.hoshi.butterfly.core.ui.components.ButterflyBackground
 
 @Composable
 fun NavigationRoot(modifier: Modifier = Modifier) {
-    var onboardingFinished by rememberSaveable { mutableStateOf(false) }
+    var onboardingFinished by remember { mutableStateOf(false) }
     var selectedRoute by remember { mutableStateOf<Route>(Route.Home) }
 
     if (!onboardingFinished) {

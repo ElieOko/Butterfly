@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -40,9 +42,16 @@ fun Home(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            HomeMetric("Serie", "21 j", modifier = Modifier.weight(1f))
-            HomeMetric("Plans", "4 actifs", modifier = Modifier.weight(1f))
-            HomeMetric("Groupes", "2", modifier = Modifier.weight(1f))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                HomeMetric("Serie", "21 j")
+                HomeMetric("Plans", "4 actifs")
+                HomeMetric("Groupes", "2")
+            }
         }
 
         OrganicCard(
@@ -71,8 +80,14 @@ fun Home(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Button(onClick = onOpenGroups, modifier = Modifier.weight(1f)) { Text("Groupes") }
-                Button(onClick = onOpenAssistant, modifier = Modifier.weight(1f)) { Text("Assistant") }
+                Button(onClick = onOpenGroups, modifier = Modifier.fillMaxWidth()) { Text("Groupes") }
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Button(onClick = onOpenAssistant, modifier = Modifier.fillMaxWidth()) { Text("Assistant") }
             }
             Button(onClick = onOpenAbout, modifier = Modifier.fillMaxWidth()) { Text("A propos") }
         }
@@ -110,10 +125,11 @@ fun Home(
 private fun HomeMetric(
     label: String,
     value: String,
-    modifier: Modifier = Modifier,
 ) {
     Card(
-        modifier = modifier.height(72.dp),
+        modifier = Modifier
+            .height(72.dp)
+            .fillMaxWidth(0.42f),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.88f)),
         shape = MaterialTheme.shapes.medium,
     ) {
