@@ -22,11 +22,7 @@ import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -41,86 +37,103 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import butterfly.shared.generated.resources.Res
+import butterfly.shared.generated.resources.bible
+import butterfly.shared.generated.resources.books
+import butterfly.shared.generated.resources.butterfly
+import butterfly.shared.generated.resources.couple
 import butterfly.shared.generated.resources.hand
+import butterfly.shared.generated.resources.pray
+import elieoko.hoshi.butterfly.design.ButterflyColors
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+
+object ButterflySpacing {
+    val xs = 4.dp
+    val sm = 8.dp
+    val md = 12.dp
+    val lg = 16.dp
+    val xl = 24.dp
+    val xxl = 32.dp
+}
+
+@Composable
+fun ImmersiveBackground(
+    image: DrawableResource,
+    dimAlpha: Float = 0.72f,
+    modifier: Modifier = Modifier,
+) {
+    Box(modifier = modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(image),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.verticalGradient(
+                        listOf(
+                            ButterflyColors.Night.copy(alpha = dimAlpha),
+                            ButterflyColors.Night.copy(alpha = (dimAlpha + 0.12f).coerceAtMost(0.92f)),
+                            ButterflyColors.Night.copy(alpha = 0.94f),
+                        ),
+                    ),
+                ),
+        )
+    }
+}
 
 @Composable
 fun ButterflyPage(
     title: String,
     subtitle: String,
+    background: DrawableResource = Res.drawable.butterfly,
+    topContent: (@Composable () -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .safeDrawingPadding()
-            .padding(horizontal = 18.dp),
-        verticalArrangement = Arrangement.spacedBy(14.dp),
-        contentPadding = PaddingValues(bottom = 28.dp),
-    ) {
-        item {
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(title, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
-            Text(
-                subtitle,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
-        item {
-            ButterflyHeroCard()
-        }
-        item {
-            Column(content = content)
-        }
-    }
-}
-
-@Composable
-fun ButterflyHeroCard() {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(topStart = 32.dp, topEnd = 16.dp, bottomStart = 16.dp, bottomEnd = 32.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
-    ) {
-        Row(
+    Box(modifier = Modifier.fillMaxSize()) {
+        ImmersiveBackground(image = background)
+        LazyColumn(
             modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    Brush.linearGradient(
-                        listOf(
-                            MaterialTheme.colorScheme.primary.copy(alpha = 0.95f),
-                            MaterialTheme.colorScheme.secondary.copy(alpha = 0.9f),
-                        ),
-                    ),
-                )
-                .padding(horizontal = 16.dp, vertical = 14.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                .fillMaxSize()
+                .safeDrawingPadding()
+                .padding(horizontal = ButterflySpacing.lg),
+            verticalArrangement = Arrangement.spacedBy(ButterflySpacing.lg),
+            contentPadding = PaddingValues(
+                top = ButterflySpacing.md,
+                bottom = ButterflySpacing.xxl,
+            ),
         ) {
-            Box(
-                modifier = Modifier
-                    .size(56.dp)
-                    .clip(CircleShape)
-                    .background(Color.White.copy(alpha = 0.18f)),
-                contentAlignment = Alignment.Center,
-            ) {
-                Image(
-                    painter = painterResource(Res.drawable.hand),
-                    contentDescription = "Butterfly logo",
-                    modifier = Modifier.size(34.dp),
-                )
+            item {
+                Column(verticalArrangement = Arrangement.spacedBy(ButterflySpacing.sm)) {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                    )
+                    Text(
+                        text = subtitle,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = ButterflyColors.MistMuted,
+                    )
+                }
             }
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Text("Butterfly", color = Color.White, fontWeight = FontWeight.Bold)
-                Text(
-                    "Croissance spirituelle, en solo et en communaute.",
-                    color = Color.White.copy(alpha = 0.9f),
-                    style = MaterialTheme.typography.bodySmall,
+            if (topContent != null) {
+                item { topContent() }
+            }
+            item {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(ButterflySpacing.lg),
+                    content = content,
                 )
             }
         }
@@ -128,74 +141,122 @@ fun ButterflyHeroCard() {
 }
 
 @Composable
-fun OrganicCard(
+fun PinCard(
     title: String,
     subtitle: String,
-    modifier: Modifier = Modifier,
-    accentA: Color = MaterialTheme.colorScheme.primary.copy(alpha = 0.82f),
-    accentB: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.8f),
+    height: Dp = 180.dp,
+    image: DrawableResource = Res.drawable.pray,
+    badge: String? = null,
     onClick: (() -> Unit)? = null,
-    content: @Composable ColumnScope.() -> Unit = {},
 ) {
     var pressed by remember { mutableStateOf(false) }
     val scale by animateFloatAsState(
-        targetValue = if (pressed) 1.02f else 1f,
-        animationSpec = tween(durationMillis = 180),
-        label = "organic-scale",
+        targetValue = if (pressed) 0.98f else 1f,
+        animationSpec = tween(160),
+        label = "pin-scale",
     )
 
-    Card(
-        modifier = modifier
+    Box(
+        modifier = Modifier
             .fillMaxWidth()
+            .height(height)
             .graphicsLayer {
                 scaleX = scale
                 scaleY = scale
             }
+            .clip(RoundedCornerShape(22.dp))
             .clickable(enabled = onClick != null) {
                 pressed = !pressed
                 onClick?.invoke()
             },
-        shape = RoundedCornerShape(topStart = 28.dp, topEnd = 12.dp, bottomStart = 12.dp, bottomEnd = 28.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
     ) {
+        Image(
+            painter = painterResource(image),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.verticalGradient(
+                        listOf(
+                            Color.Transparent,
+                            ButterflyColors.Night.copy(alpha = 0.25f),
+                            ButterflyColors.Night.copy(alpha = 0.88f),
+                        ),
+                    ),
+                ),
+        )
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .background(Brush.linearGradient(listOf(accentA, accentB)))
-                .padding(15.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+                .align(Alignment.BottomStart)
+                .padding(ButterflySpacing.lg),
+            verticalArrangement = Arrangement.spacedBy(ButterflySpacing.xs),
         ) {
+            if (badge != null) {
+                Surface(
+                    color = Color.White.copy(alpha = 0.16f),
+                    shape = RoundedCornerShape(999.dp),
+                ) {
+                    Text(
+                        text = badge,
+                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = Color.White,
+                    )
+                }
+            }
             Text(title, color = Color.White, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-            Text(subtitle, color = Color.White.copy(alpha = 0.92f), style = MaterialTheme.typography.bodySmall)
-            content()
+            Text(subtitle, color = Color.White.copy(alpha = 0.88f), style = MaterialTheme.typography.bodySmall)
         }
     }
 }
 
 @Composable
-fun PillRow(labels: List<String>) {
+fun GlassCard(
+    modifier: Modifier = Modifier,
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        color = ButterflyColors.Glass,
+        shape = RoundedCornerShape(22.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.08f)),
+    ) {
+        Column(
+            modifier = Modifier.padding(ButterflySpacing.lg),
+            verticalArrangement = Arrangement.spacedBy(ButterflySpacing.md),
+            content = content,
+        )
+    }
+}
+
+@Composable
+fun PillRow(
+    labels: List<String>,
+    onSelected: ((String) -> Unit)? = null,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .horizontalScroll(rememberScrollState()),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(ButterflySpacing.sm),
     ) {
         labels.forEach { label ->
             Surface(
                 shape = RoundedCornerShape(999.dp),
-                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.86f),
+                color = Color.White.copy(alpha = 0.1f),
                 modifier = Modifier
-                    .border(
-                        width = 1.dp,
-                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.24f),
-                        shape = RoundedCornerShape(999.dp),
-                    )
-                    .clickable {},
+                    .border(1.dp, Color.White.copy(alpha = 0.12f), RoundedCornerShape(999.dp))
+                    .clickable { onSelected?.invoke(label) },
             ) {
                 Text(
                     text = label,
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp),
+                    modifier = Modifier.padding(horizontal = 14.dp, vertical = 8.dp),
                     style = MaterialTheme.typography.labelLarge,
+                    color = Color.White,
                     textAlign = TextAlign.Center,
                 )
             }
@@ -204,13 +265,37 @@ fun PillRow(labels: List<String>) {
 }
 
 @Composable
-fun ButterflyBadge(label: String) {
-    Surface(shape = CutCornerShape(8.dp), color = Color.White.copy(alpha = 0.2f)) {
-        Text(
-            text = label,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
-            style = MaterialTheme.typography.labelMedium,
-            color = Color.White,
-        )
+fun SectionLabel(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.titleMedium,
+        fontWeight = FontWeight.SemiBold,
+        color = Color.White,
+    )
+}
+
+@Composable
+fun MetricChip(label: String, value: String) {
+    Surface(
+        color = Color.White.copy(alpha = 0.1f),
+        shape = RoundedCornerShape(18.dp),
+    ) {
+        Column(
+            modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+            horizontalAlignment = Alignment.Start,
+        ) {
+            Text(label, style = MaterialTheme.typography.labelSmall, color = ButterflyColors.MistMuted)
+            Text(value, style = MaterialTheme.typography.titleMedium, color = Color.White, fontWeight = FontWeight.Bold)
+        }
     }
+}
+
+fun butterflyImageFor(index: Int): DrawableResource = when (index % 6) {
+    0 -> Res.drawable.butterfly
+    1 -> Res.drawable.pray
+    2 -> Res.drawable.couple
+    3 -> Res.drawable.hand
+    4 -> Res.drawable.bible
+    else -> Res.drawable.books
 }

@@ -6,8 +6,8 @@ enum class Route(
 ) {
     Home("Accueil", "🏠"),
     Bible("Bible", "📖"),
-    Plan("Plans", "🗓️"),
-    Group("Groupes", "🤝"),
-    Assistant("Assistant", "✨"),
-    About("A propos", "🦋"),
+    Notes("Notes", "📝"),
+    Meditation("Méditation", "🕊️"),
+    Groups("Groupes", "🤝"),
+    Account("Compte", "👤"),
 }

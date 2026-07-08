@@ -1,145 +1,124 @@
 package elieoko.hoshi.butterfly.app.home.application.ui
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import butterfly.shared.generated.resources.Res
+import butterfly.shared.generated.resources.butterfly
 import butterfly.shared.generated.resources.couple
+import butterfly.shared.generated.resources.hand
+import butterfly.shared.generated.resources.pray
+import elieoko.hoshi.butterfly.core.session.LocalButterflySession
 import elieoko.hoshi.butterfly.core.ui.components.ButterflyPage
-import elieoko.hoshi.butterfly.core.ui.components.OrganicCard
+import elieoko.hoshi.butterfly.core.ui.components.ButterflySpacing
+import elieoko.hoshi.butterfly.core.ui.components.GlassCard
+import elieoko.hoshi.butterfly.core.ui.components.MetricChip
+import elieoko.hoshi.butterfly.core.ui.components.PinCard
 import elieoko.hoshi.butterfly.core.ui.components.PillRow
-import org.jetbrains.compose.resources.painterResource
+import elieoko.hoshi.butterfly.core.ui.components.SectionLabel
+import elieoko.hoshi.butterfly.core.ui.feedback.LocalButterflyFeedback
 
 @Composable
 fun Home(
+    onOpenBible: () -> Unit,
+    onOpenNotes: () -> Unit,
+    onOpenMeditation: () -> Unit,
     onOpenGroups: () -> Unit,
-    onOpenAssistant: () -> Unit,
-    onOpenAbout: () -> Unit,
+    onOpenAccount: () -> Unit,
 ) {
+    val session = LocalButterflySession.current
+    val feedback = LocalButterflyFeedback.current
+    val greeting = session.user?.name?.let { "Bonjour $it" } ?: "Bienvenue sur Butterfly"
+
     ButterflyPage(
-        title = "Bonjour, bienvenue",
-        subtitle = "Un parcours uniforme et elegant pour la lecture, la priere et la communaute.",
+        title = greeting,
+        subtitle = "Un board spirituel calme : Bible, notes, méditation et communauté.",
+        background = Res.drawable.butterfly,
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(ButterflySpacing.sm),
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .horizontalScroll(rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-            ) {
-                HomeMetric("Serie", "21 j")
-                HomeMetric("Plans", "4 actifs")
-                HomeMetric("Groupes", "2")
-            }
+            MetricChip("Série", "21 j")
+            MetricChip("Notes", "12")
+            MetricChip("Groupes", "${session.joinedGroupIds.size}")
         }
 
-        OrganicCard(
+        PinCard(
             title = "Verset du jour",
-            subtitle = "\"Ta parole est une lampe a mes pieds, et une lumiere sur mon sentier.\"",
-        ) {
-            Text("Psaume 119:105", color = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.92f))
-            LinearProgressIndicator(
-                progress = { 0.74f },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(MaterialTheme.shapes.small),
-                color = MaterialTheme.colorScheme.tertiary,
-                trackColor = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.25f),
-            )
-        }
-
-        OrganicCard(
-            title = "Actions rapides",
-            subtitle = "Accede aux espaces essentiels de Butterfly.",
-            accentA = MaterialTheme.colorScheme.secondary.copy(alpha = 0.86f),
-            accentB = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f),
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Button(onClick = onOpenGroups, modifier = Modifier.fillMaxWidth()) { Text("Groupes") }
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Button(onClick = onOpenAssistant, modifier = Modifier.fillMaxWidth()) { Text("Assistant") }
-            }
-            Button(onClick = onOpenAbout, modifier = Modifier.fillMaxWidth()) { Text("A propos") }
-        }
-
-        OrganicCard(
-            title = "Communaute active",
-            subtitle = "Etude en couple, priere de groupe et encouragements quotidiens.",
-            accentA = Color(0xFF2B3F86),
-            accentB = Color(0xFF6C4FAF),
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-            ) {
-                Image(
-                    painter = painterResource(Res.drawable.couple),
-                    contentDescription = "Etude en couple",
-                    modifier = Modifier.size(108.dp),
-                )
-            }
-        }
-
-        PillRow(
-            labels = listOf(
-                "Meditation du matin",
-                "Priere du soir",
-                "Lecture en couple",
-                "Defi hebdo",
-            ),
+            subtitle = "Ta parole est une lampe à mes pieds — Psaume 119:105",
+            height = 220.dp,
+            image = Res.drawable.pray,
+            badge = "Aujourd'hui",
+            onClick = {
+                feedback.toast("Verset sauvegardé dans tes notes.")
+                onOpenBible()
+            },
         )
-    }
-}
 
-@Composable
-private fun HomeMetric(
-    label: String,
-    value: String,
-) {
-    Card(
-        modifier = Modifier
-            .height(72.dp)
-            .fillMaxWidth(0.42f),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.88f)),
-        shape = MaterialTheme.shapes.medium,
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-        ) {
-            Text(label, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            Text(value, style = MaterialTheme.typography.titleMedium)
+        SectionLabel("Explorer")
+        PinCard(
+            title = "Bible",
+            subtitle = "Lecture immersive et recherche rapide",
+            height = 168.dp,
+            image = Res.drawable.hand,
+            badge = "Lire",
+            onClick = onOpenBible,
+        )
+        PinCard(
+            title = "Notes",
+            subtitle = "Journal spirituel personnel",
+            height = 200.dp,
+            image = Res.drawable.couple,
+            badge = "Écrire",
+            onClick = onOpenNotes,
+        )
+        PinCard(
+            title = "Méditation",
+            subtitle = "Sessions courtes pour retrouver le calme",
+            height = 180.dp,
+            image = Res.drawable.pray,
+            badge = "Calme",
+            onClick = onOpenMeditation,
+        )
+        PinCard(
+            title = "Groupes",
+            subtitle = "Partage, prière et progression commune",
+            height = 160.dp,
+            image = Res.drawable.butterfly,
+            badge = "Rejoindre",
+            onClick = onOpenGroups,
+        )
+
+        GlassCard {
+            SectionLabel("Raccourcis")
+            PillRow(
+                labels = listOf("Prière du soir", "Lecture couple", "Défi 7 jours", "Favoris"),
+                onSelected = { feedback.toast("$it ouvert") },
+            )
+            Button(
+                onClick = {
+                    if (session.isAuthenticated) {
+                        feedback.notify("Compte actif : ${session.user?.email}")
+                        onOpenAccount()
+                    } else {
+                        onOpenAccount()
+                    }
+                },
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text(if (session.isAuthenticated) "Voir mon compte" else "Créer un compte")
+            }
         }
     }
 }
