@@ -1,10 +1,6 @@
 package elieoko.hoshi.butterfly
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.with
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -20,7 +16,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -40,7 +35,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -64,7 +59,7 @@ private enum class AppDestination(val title: String, val emoji: String) {
 @Preview
 fun App() {
     SpiritualTheme {
-        var selectedDestination by rememberSaveable { mutableStateOf(AppDestination.Home) }
+        var selectedDestination by remember { mutableStateOf(AppDestination.Home) }
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             containerColor = MaterialTheme.colorScheme.background,
@@ -84,11 +79,8 @@ fun App() {
                 }
             },
         ) { innerPadding ->
-            AnimatedContent(
+            Crossfade(
                 targetState = selectedDestination,
-                transitionSpec = {
-                    fadeIn(animationSpec = spring()) with fadeOut(animationSpec = spring())
-                },
                 modifier = Modifier
                     .padding(innerPadding)
                     .fillMaxSize(),
