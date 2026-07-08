@@ -76,7 +76,7 @@ fun Onboarding(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background.copy(alpha = 0.62f)),
         )
-        ButterflyBackground()
+     //   ButterflyBackground()
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -95,28 +95,28 @@ fun Onboarding(
                         .padding(12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(220.dp)
-                            .background(
-                                brush = Brush.linearGradient(
-                                    listOf(
-                                        MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
-                                        MaterialTheme.colorScheme.secondary.copy(alpha = 0.15f),
-                                    ),
-                                ),
-                                shape = RoundedCornerShape(22.dp),
-                            ),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Image(
-                            painter = painterResource(Res.drawable.butterfly),
-                            contentDescription = "Butterfly illustration",
-                            modifier = Modifier.fillMaxSize(),
-                            contentScale = ContentScale.Crop,
-                        )
-                    }
+//                    Box(
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .height(220.dp)
+//                            .background(
+//                                brush = Brush.linearGradient(
+//                                    listOf(
+//                                        MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
+//                                        MaterialTheme.colorScheme.secondary.copy(alpha = 0.15f),
+//                                    ),
+//                                ),
+//                                shape = RoundedCornerShape(22.dp),
+//                            ),
+//                        contentAlignment = Alignment.Center,
+//                    ) {
+//                        Image(
+//                            painter = painterResource(Res.drawable.butterfly),
+//                            contentDescription = "Butterfly illustration",
+//                            modifier = Modifier.fillMaxSize(),
+//                            contentScale = ContentScale.Crop,
+//                        )
+//                    }
                     Spacer(modifier = Modifier.height(10.dp))
                     Text("BUTTERFLY", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, color = Color.White)
                     Text(
