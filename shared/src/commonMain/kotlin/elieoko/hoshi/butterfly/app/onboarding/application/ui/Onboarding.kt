@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import butterfly.shared.generated.resources.Res
@@ -64,6 +65,17 @@ fun Onboarding(
     val isLastStep = stepIndex == onboardingSteps.lastIndex
 
     Box(modifier = Modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(Res.drawable.butterfly),
+            contentDescription = "Image de fond Butterfly",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background.copy(alpha = 0.62f)),
+        )
         ButterflyBackground()
         Column(
             modifier = Modifier
@@ -80,20 +92,37 @@ fun Onboarding(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(18.dp),
+                        .padding(12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    Image(
-                        painter = painterResource(Res.drawable.butterfly),
-                        contentDescription = "Butterfly illustration",
-                        modifier = Modifier.size(130.dp),
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text("BUTTERFLY", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(220.dp)
+                            .background(
+                                brush = Brush.linearGradient(
+                                    listOf(
+                                        MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
+                                        MaterialTheme.colorScheme.secondary.copy(alpha = 0.15f),
+                                    ),
+                                ),
+                                shape = RoundedCornerShape(22.dp),
+                            ),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Image(
+                            painter = painterResource(Res.drawable.butterfly),
+                            contentDescription = "Butterfly illustration",
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Crop,
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Text("BUTTERFLY", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, color = Color.White)
                     Text(
                         "Croissance spirituelle intelligente",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = Color.White.copy(alpha = 0.92f),
                     )
                 }
             }
