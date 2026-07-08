@@ -2,18 +2,22 @@ package elieoko.hoshi.butterfly.app.about.application.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.weight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import butterfly.shared.generated.resources.Res
-import butterfly.shared.generated.resources.compose_multiplatform
+import butterfly.shared.generated.resources.butterfly
+import butterfly.shared.generated.resources.pray
 import elieoko.hoshi.butterfly.core.ui.components.ButterflyPage
 import elieoko.hoshi.butterfly.core.ui.components.OrganicCard
 import org.jetbrains.compose.resources.painterResource
@@ -50,15 +54,21 @@ fun About() {
                 Text("1.0.0-preview", color = Color.White, style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.SemiBold)
             }
         }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            Image(
-                painter = painterResource(Res.drawable.compose_multiplatform),
-                contentDescription = "Butterfly logo",
-                modifier = Modifier.size(96.dp),
-            )
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
+                Image(
+                    painter = painterResource(Res.drawable.butterfly),
+                    contentDescription = "Butterfly visuel",
+                    modifier = Modifier.size(88.dp),
+                )
+            }
+            Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
+                Image(
+                    painter = painterResource(Res.drawable.pray),
+                    contentDescription = "Priere visuel",
+                    modifier = Modifier.size(88.dp),
+                )
+            }
         }
     }
 }

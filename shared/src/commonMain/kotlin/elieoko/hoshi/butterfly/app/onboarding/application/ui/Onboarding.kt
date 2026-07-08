@@ -32,7 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import butterfly.shared.generated.resources.Res
-import butterfly.shared.generated.resources.compose_multiplatform
+import butterfly.shared.generated.resources.butterfly
 import elieoko.hoshi.butterfly.core.ui.components.ButterflyBackground
 import org.jetbrains.compose.resources.painterResource
 
@@ -84,7 +84,7 @@ fun Onboarding(
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Image(
-                        painter = painterResource(Res.drawable.compose_multiplatform),
+                        painter = painterResource(Res.drawable.butterfly),
                         contentDescription = "Butterfly illustration",
                         modifier = Modifier.size(130.dp),
                     )

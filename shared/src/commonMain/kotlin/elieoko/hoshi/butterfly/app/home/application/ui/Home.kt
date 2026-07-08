@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.Image
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -16,10 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import butterfly.shared.generated.resources.Res
+import butterfly.shared.generated.resources.couple
 import elieoko.hoshi.butterfly.core.ui.components.ButterflyPage
 import elieoko.hoshi.butterfly.core.ui.components.OrganicCard
 import elieoko.hoshi.butterfly.core.ui.components.PillRow
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun Home(
@@ -70,6 +75,24 @@ fun Home(
                 Button(onClick = onOpenAssistant, modifier = Modifier.weight(1f)) { Text("Assistant") }
             }
             Button(onClick = onOpenAbout, modifier = Modifier.fillMaxWidth()) { Text("A propos") }
+        }
+
+        OrganicCard(
+            title = "Communaute active",
+            subtitle = "Etude en couple, priere de groupe et encouragements quotidiens.",
+            accentA = Color(0xFF2B3F86),
+            accentB = Color(0xFF6C4FAF),
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                Image(
+                    painter = painterResource(Res.drawable.couple),
+                    contentDescription = "Etude en couple",
+                    modifier = Modifier.size(108.dp),
+                )
+            }
         }
 
         PillRow(

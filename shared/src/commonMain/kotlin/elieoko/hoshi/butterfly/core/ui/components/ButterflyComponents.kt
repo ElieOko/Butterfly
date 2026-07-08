@@ -47,7 +47,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import butterfly.shared.generated.resources.Res
-import butterfly.shared.generated.resources.compose_multiplatform
+import butterfly.shared.generated.resources.hand
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -112,7 +112,7 @@ fun ButterflyHeroCard() {
                 contentAlignment = Alignment.Center,
             ) {
                 Image(
-                    painter = painterResource(Res.drawable.compose_multiplatform),
+                    painter = painterResource(Res.drawable.hand),
                     contentDescription = "Butterfly logo",
                     modifier = Modifier.size(34.dp),
                 )
