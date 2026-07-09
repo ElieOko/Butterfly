@@ -2,9 +2,11 @@ package elieoko.hoshi.butterfly.app.home.application.ui
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -57,7 +59,7 @@ fun Home(
         PinCard(
             title = "Verset du jour",
             subtitle = "Ta parole est une lampe à mes pieds — Psaume 119:105",
-            height = 220.dp,
+            height = 240.dp,
             image = Res.drawable.pray,
             badge = "Aujourd'hui",
             onClick = {
@@ -66,39 +68,79 @@ fun Home(
             },
         )
 
-        SectionLabel("Explorer")
-        PinCard(
-            title = "Bible",
-            subtitle = "Lecture immersive et recherche rapide",
-            height = 168.dp,
-            image = Res.drawable.hand,
-            badge = "Lire",
-            onClick = onOpenBible,
-        )
-        PinCard(
-            title = "Notes",
-            subtitle = "Journal spirituel personnel",
-            height = 200.dp,
-            image = Res.drawable.couple,
-            badge = "Écrire",
-            onClick = onOpenNotes,
-        )
-        PinCard(
-            title = "Méditation",
-            subtitle = "Sessions courtes pour retrouver le calme",
-            height = 180.dp,
-            image = Res.drawable.pray,
-            badge = "Calme",
-            onClick = onOpenMeditation,
-        )
-        PinCard(
-            title = "Groupes",
-            subtitle = "Partage, prière et progression commune",
-            height = 160.dp,
-            image = Res.drawable.butterfly,
-            badge = "Rejoindre",
-            onClick = onOpenGroups,
-        )
+        SectionLabel("Board du jour")
+        BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+            val tileWidth = (maxWidth - ButterflySpacing.md) / 2
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(ButterflySpacing.md),
+            ) {
+                Column(
+                    modifier = Modifier.width(tileWidth),
+                    verticalArrangement = Arrangement.spacedBy(ButterflySpacing.md),
+                ) {
+                    PinCard(
+                        title = "Bible",
+                        subtitle = "Lecture immersive et recherche rapide",
+                        modifier = Modifier.width(tileWidth),
+                        height = 190.dp,
+                        image = Res.drawable.hand,
+                        badge = "Lire",
+                        onClick = onOpenBible,
+                    )
+                    PinCard(
+                        title = "Méditation",
+                        subtitle = "Sessions courtes pour retrouver le calme",
+                        modifier = Modifier.width(tileWidth),
+                        height = 246.dp,
+                        image = Res.drawable.pray,
+                        badge = "Calme",
+                        onClick = onOpenMeditation,
+                    )
+                    PinCard(
+                        title = "Compte",
+                        subtitle = "Sauvegarde ton parcours",
+                        modifier = Modifier.width(tileWidth),
+                        height = 158.dp,
+                        image = Res.drawable.butterfly,
+                        badge = "Profil",
+                        onClick = onOpenAccount,
+                    )
+                }
+                Column(
+                    modifier = Modifier.width(tileWidth),
+                    verticalArrangement = Arrangement.spacedBy(ButterflySpacing.md),
+                ) {
+                    PinCard(
+                        title = "Notes",
+                        subtitle = "Journal spirituel personnel",
+                        modifier = Modifier.width(tileWidth),
+                        height = 250.dp,
+                        image = Res.drawable.couple,
+                        badge = "Écrire",
+                        onClick = onOpenNotes,
+                    )
+                    PinCard(
+                        title = "Groupes",
+                        subtitle = "Partage, prière et progression",
+                        modifier = Modifier.width(tileWidth),
+                        height = 184.dp,
+                        image = Res.drawable.butterfly,
+                        badge = "Rejoindre",
+                        onClick = onOpenGroups,
+                    )
+                    PinCard(
+                        title = "Défi",
+                        subtitle = "7 jours de gratitude",
+                        modifier = Modifier.width(tileWidth),
+                        height = 196.dp,
+                        image = Res.drawable.pray,
+                        badge = "Streak",
+                        onClick = { feedback.notify("Défi ajouté à ton board.") },
+                    )
+                }
+            }
+        }
 
         GlassCard {
             SectionLabel("Raccourcis")
