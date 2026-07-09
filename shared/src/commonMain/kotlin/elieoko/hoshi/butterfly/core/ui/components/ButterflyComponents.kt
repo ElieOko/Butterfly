@@ -144,6 +144,7 @@ fun ButterflyPage(
 fun PinCard(
     title: String,
     subtitle: String,
+    modifier: Modifier = Modifier,
     height: Dp = 180.dp,
     image: DrawableResource = Res.drawable.pray,
     badge: String? = null,
@@ -157,7 +158,7 @@ fun PinCard(
     )
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(height)
             .graphicsLayer {
