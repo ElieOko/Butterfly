@@ -81,9 +81,9 @@ fun ImmersiveBackground(
                 .background(
                     Brush.verticalGradient(
                         listOf(
-                            ButterflyColors.Night.copy(alpha = dimAlpha),
-                            ButterflyColors.Night.copy(alpha = (dimAlpha + 0.12f).coerceAtMost(0.92f)),
-                            ButterflyColors.Night.copy(alpha = 0.94f),
+                            ButterflyColors.Night.copy(alpha = (dimAlpha - 0.14f).coerceAtLeast(0.48f)),
+                            ButterflyColors.Night.copy(alpha = (dimAlpha + 0.06f).coerceAtMost(0.90f)),
+                            ButterflyColors.Night.copy(alpha = 0.96f),
                         ),
                     ),
                 ),
@@ -108,8 +108,8 @@ fun ButterflyPage(
                 .padding(horizontal = ButterflySpacing.lg),
             verticalArrangement = Arrangement.spacedBy(ButterflySpacing.lg),
             contentPadding = PaddingValues(
-                top = ButterflySpacing.md,
-                bottom = ButterflySpacing.xxl,
+                top = ButterflySpacing.lg,
+                bottom = ButterflySpacing.xl,
             ),
         ) {
             item {
@@ -165,7 +165,8 @@ fun PinCard(
                 scaleX = scale
                 scaleY = scale
             }
-            .clip(RoundedCornerShape(22.dp))
+            .clip(RoundedCornerShape(18.dp))
+            .border(1.dp, Color.White.copy(alpha = 0.10f), RoundedCornerShape(18.dp))
             .clickable(enabled = onClick != null) {
                 pressed = !pressed
                 onClick?.invoke()
@@ -184,8 +185,8 @@ fun PinCard(
                     Brush.verticalGradient(
                         listOf(
                             Color.Transparent,
-                            ButterflyColors.Night.copy(alpha = 0.25f),
-                            ButterflyColors.Night.copy(alpha = 0.88f),
+                            ButterflyColors.Night.copy(alpha = 0.12f),
+                            ButterflyColors.Night.copy(alpha = 0.92f),
                         ),
                     ),
                 ),
@@ -199,11 +200,11 @@ fun PinCard(
             if (badge != null) {
                 Surface(
                     color = Color.White.copy(alpha = 0.16f),
-                    shape = RoundedCornerShape(999.dp),
+                    shape = RoundedCornerShape(8.dp),
                 ) {
                     Text(
                         text = badge,
-                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+                        modifier = Modifier.padding(horizontal = 9.dp, vertical = 4.dp),
                         style = MaterialTheme.typography.labelMedium,
                         color = Color.White,
                     )
@@ -223,7 +224,7 @@ fun GlassCard(
     Surface(
         modifier = modifier.fillMaxWidth(),
         color = ButterflyColors.Glass,
-        shape = RoundedCornerShape(22.dp),
+        shape = RoundedCornerShape(18.dp),
         border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.08f)),
     ) {
         Column(

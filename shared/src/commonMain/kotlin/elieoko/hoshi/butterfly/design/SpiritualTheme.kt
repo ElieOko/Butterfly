@@ -13,18 +13,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-/** Night-blue brand palette for Butterfly. */
+/** High-contrast, content-first palette inspired by social feeds. */
 object ButterflyColors {
-    val Night = Color(0xFF070B18)
-    val NightElevated = Color(0xFF10182B)
-    val NightCard = Color(0xFF162038)
-    val Midnight = Color(0xFF1A2744)
-    val SoftBlue = Color(0xFF7EA2FF)
-    val SoftViolet = Color(0xFFB39DFF)
+    val Night = Color(0xFF050505)
+    val NightElevated = Color(0xFF101010)
+    val NightCard = Color(0xFF1B1B1D)
+    val Midnight = Color(0xFF202126)
+    val SoftBlue = Color(0xFF70E7FF)
+    val SoftViolet = Color(0xFFC5B2FF)
     val SoftGold = Color(0xFFE2C56A)
-    val Mist = Color(0xFFD7DEF5)
-    val MistMuted = Color(0xFF9AA6C7)
-    val Glass = Color(0xCC121A2E)
+    val Mist = Color(0xFFF2F2F2)
+    val MistMuted = Color(0xFFA9AAAE)
+    val Glass = Color(0xE6111113)
 }
 
 private val NightScheme: ColorScheme = darkColorScheme(
@@ -40,7 +40,7 @@ private val NightScheme: ColorScheme = darkColorScheme(
     onBackground = ButterflyColors.Mist,
     onSurface = ButterflyColors.Mist,
     onSurfaceVariant = ButterflyColors.MistMuted,
-    outline = Color(0xFF3A4666),
+    outline = Color(0xFF3B3B40),
 )
 
 private val SpiritualTypography = Typography(
