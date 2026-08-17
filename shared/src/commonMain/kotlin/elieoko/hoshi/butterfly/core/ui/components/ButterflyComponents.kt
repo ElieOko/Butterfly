@@ -193,6 +193,7 @@ fun PinCard(
         modifier = modifier
             .fillMaxWidth()
             .height(height)
+            .shadow(12.dp, RoundedCornerShape(22.dp), ambientColor = Color.Black.copy(0.35f))
             .graphicsLayer {
                 scaleX = scale
                 scaleY = scale
