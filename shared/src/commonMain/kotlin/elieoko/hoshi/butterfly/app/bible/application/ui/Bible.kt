@@ -32,6 +32,7 @@ fun Bible() {
         title = "Bible",
         subtitle = "Lecture claire, recherche rapide, surlignage et partage.",
         backgroundUrl = SpiritualImagery.bibleOpen,
+        kicker = "Étude",
     ) {
         OutlinedTextField(
             value = query,

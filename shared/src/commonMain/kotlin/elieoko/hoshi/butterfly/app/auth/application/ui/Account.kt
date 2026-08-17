@@ -1,7 +1,6 @@
 package elieoko.hoshi.butterfly.app.auth.application.ui
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -19,6 +18,7 @@ import elieoko.hoshi.butterfly.core.session.LocalButterflySession
 import elieoko.hoshi.butterfly.core.ui.components.ButterflyPage
 import elieoko.hoshi.butterfly.core.ui.components.GlassCard
 import elieoko.hoshi.butterfly.core.ui.components.PinCard
+import elieoko.hoshi.butterfly.core.ui.components.SacredPrimaryButton
 import elieoko.hoshi.butterfly.core.ui.components.SectionLabel
 import elieoko.hoshi.butterfly.core.ui.feedback.LocalButterflyFeedback
 import elieoko.hoshi.butterfly.design.ButterflyColors
@@ -35,6 +35,7 @@ fun Account() {
         title = if (session.isAuthenticated) "Mon compte" else "Créer un compte",
         subtitle = "Rejoins Butterfly pour synchroniser notes, méditations et groupes.",
         backgroundUrl = SpiritualImagery.natureSpirit,
+        kicker = "Profil",
     ) {
         if (session.isAuthenticated) {
             GlassCard {
@@ -55,15 +56,13 @@ fun Account() {
                     style = MaterialTheme.typography.bodySmall,
                     color = ButterflyColors.SoftGold,
                 )
-                Button(
+                SacredPrimaryButton(
+                    text = "Se déconnecter",
                     onClick = {
                         session.signOut()
                         feedback.notify("Session terminée. À bientôt.")
                     },
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text("Se déconnecter")
-                }
+                )
             }
             PinCard(
                 title = "Ton espace spirituel",
@@ -87,7 +86,8 @@ fun Account() {
                     label = "Email",
                     placeholder = "ex: elie@butterfly.app",
                 )
-                Button(
+                SacredPrimaryButton(
+                    text = "Créer mon compte",
                     onClick = {
                         when {
                             name.isBlank() || email.isBlank() -> feedback.toast("Complète nom et email.")
@@ -98,10 +98,7 @@ fun Account() {
                             }
                         }
                     },
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text("Créer mon compte")
-                }
+                )
             }
             PinCard(
                 title = "Pourquoi un compte ?",

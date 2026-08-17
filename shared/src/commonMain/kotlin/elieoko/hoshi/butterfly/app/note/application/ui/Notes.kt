@@ -41,6 +41,7 @@ fun Notes() {
         title = "Notes",
         subtitle = "Capture tes révélations, prières et insights bibliques.",
         backgroundUrl = SpiritualImagery.scriptureDesk,
+        kicker = "Journal",
     ) {
         GlassCard {
             SectionLabel("Nouvelle note")
