@@ -13,18 +13,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-/** High-contrast, content-first palette inspired by social feeds. */
+/** Editorial spiritual palette — velvety night with aurora accents. */
 object ButterflyColors {
-    val Night = Color(0xFF050505)
-    val NightElevated = Color(0xFF101010)
-    val NightCard = Color(0xFF1B1B1D)
-    val Midnight = Color(0xFF202126)
-    val SoftBlue = Color(0xFF70E7FF)
-    val SoftViolet = Color(0xFFC5B2FF)
-    val SoftGold = Color(0xFFE2C56A)
+    val Night = Color(0xFF050508)
+    val NightElevated = Color(0xFF0E0E12)
+    val NightCard = Color(0xFF16161C)
+    val Midnight = Color(0xFF1C1D26)
+    val AuroraIndigo = Color(0xFF2A2D4A)
+    val SoftBlue = Color(0xFF8BE8FF)
+    val SoftViolet = Color(0xFFD4C4FF)
+    val SoftGold = Color(0xFFE8C97A)
+    val RoseDawn = Color(0xFFE8A4B8)
+    val WarmCream = Color(0xFFF8F2E8)
     val Mist = Color(0xFFF2F2F2)
-    val MistMuted = Color(0xFFA9AAAE)
-    val Glass = Color(0xE6111113)
+    val MistMuted = Color(0xFF9A9AA8)
+    val Glass = Color(0xE814141A)
 }
 
 private val NightScheme: ColorScheme = darkColorScheme(
@@ -52,11 +55,11 @@ private val SpiritualTypography = Typography(
         letterSpacing = (-0.4).sp,
     ),
     headlineMedium = TextStyle(
-        fontFamily = FontFamily.SansSerif,
-        fontWeight = FontWeight.Bold,
-        fontSize = 28.sp,
-        lineHeight = 34.sp,
-        letterSpacing = (-0.2).sp,
+        fontFamily = FontFamily.Serif,
+        fontWeight = FontWeight.Light,
+        fontSize = 30.sp,
+        lineHeight = 36.sp,
+        letterSpacing = (-0.3).sp,
     ),
     titleLarge = TextStyle(
         fontFamily = FontFamily.SansSerif,

@@ -47,6 +47,7 @@ fun Group() {
         title = "Groupes",
         subtitle = "Rejoins un groupe de partage et lie ton compte à une communauté.",
         backgroundUrl = SpiritualImagery.worshipCommunity,
+        kicker = "Communauté",
     ) {
         GlassCard {
             SectionLabel("Rejoindre avec un code")

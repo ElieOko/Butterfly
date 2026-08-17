@@ -2,7 +2,6 @@ package elieoko.hoshi.butterfly.app.meditation.application.ui
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +17,7 @@ import elieoko.hoshi.butterfly.core.ui.components.ButterflyPage
 import elieoko.hoshi.butterfly.core.ui.components.GlassCard
 import elieoko.hoshi.butterfly.core.ui.components.PinCard
 import elieoko.hoshi.butterfly.core.ui.components.PillRow
+import elieoko.hoshi.butterfly.core.ui.components.SacredPrimaryButton
 import elieoko.hoshi.butterfly.core.ui.components.SectionLabel
 import elieoko.hoshi.butterfly.core.ui.components.butterflyImageUrlFor
 import elieoko.hoshi.butterfly.core.ui.feedback.LocalButterflyFeedback
@@ -38,6 +38,7 @@ fun Meditation() {
         title = "Méditation",
         subtitle = "Des sessions courtes pour ralentir, prier et écouter.",
         backgroundUrl = SpiritualImagery.meditationCalm,
+        kicker = "Présence",
     ) {
         GlassCard {
             SectionLabel("Session en cours")
@@ -50,7 +51,8 @@ fun Meditation() {
                 color = ButterflyColors.SoftGold,
                 trackColor = Color.White.copy(alpha = 0.18f),
             )
-            Button(
+            SacredPrimaryButton(
+                text = if (progress < 1f) "Continuer" else "Recommencer",
                 onClick = {
                     progress = (progress + 0.18f).coerceAtMost(1f)
                     if (progress >= 1f) {
@@ -60,10 +62,7 @@ fun Meditation() {
                         feedback.toast("Session reprise")
                     }
                 },
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Text(if (progress < 1f) "Continuer" else "Recommencer")
-            }
+            )
         }
 
         PillRow(
