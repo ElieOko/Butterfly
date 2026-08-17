@@ -22,13 +22,13 @@ import androidx.compose.ui.unit.sp
 import butterfly.shared.generated.resources.Res
 import butterfly.shared.generated.resources.bible
 import butterfly.shared.generated.resources.books
-import butterfly.shared.generated.resources.butterfly
+import elieoko.hoshi.butterfly.design.SpiritualImagery
 import org.jetbrains.compose.resources.painterResource
 
 /** Kept for compatibility; immersive backgrounds are preferred. */
 @Composable
 fun ButterflyBackground(modifier: Modifier = Modifier) {
-    ImmersiveBackground(image = Res.drawable.butterfly, modifier = modifier)
+    ImmersiveBackground(imageUrl = SpiritualImagery.heroHome, modifier = modifier)
 }
 
 @Composable

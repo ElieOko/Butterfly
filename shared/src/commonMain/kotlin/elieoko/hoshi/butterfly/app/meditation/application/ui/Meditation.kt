@@ -14,16 +14,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import butterfly.shared.generated.resources.Res
-import butterfly.shared.generated.resources.pray
 import elieoko.hoshi.butterfly.core.ui.components.ButterflyPage
 import elieoko.hoshi.butterfly.core.ui.components.GlassCard
 import elieoko.hoshi.butterfly.core.ui.components.PinCard
 import elieoko.hoshi.butterfly.core.ui.components.PillRow
 import elieoko.hoshi.butterfly.core.ui.components.SectionLabel
-import elieoko.hoshi.butterfly.core.ui.components.butterflyImageFor
+import elieoko.hoshi.butterfly.core.ui.components.butterflyImageUrlFor
 import elieoko.hoshi.butterfly.core.ui.feedback.LocalButterflyFeedback
 import elieoko.hoshi.butterfly.design.ButterflyColors
+import elieoko.hoshi.butterfly.design.SpiritualImagery
 
 @Composable
 fun Meditation() {
@@ -38,7 +37,7 @@ fun Meditation() {
     ButterflyPage(
         title = "Méditation",
         subtitle = "Des sessions courtes pour ralentir, prier et écouter.",
-        background = Res.drawable.pray,
+        backgroundUrl = SpiritualImagery.meditationCalm,
     ) {
         GlassCard {
             SectionLabel("Session en cours")
@@ -78,7 +77,7 @@ fun Meditation() {
                 title = title,
                 subtitle = subtitle,
                 height = height,
-                image = butterflyImageFor(index + 1),
+                imageUrl = butterflyImageUrlFor(index + 1),
                 badge = "Méditer",
                 onClick = { feedback.notify("Méditation « $title » démarrée") },
             )

@@ -14,17 +14,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import butterfly.shared.generated.resources.Res
-import butterfly.shared.generated.resources.couple
-import butterfly.shared.generated.resources.pray
 import elieoko.hoshi.butterfly.core.session.LocalButterflySession
 import elieoko.hoshi.butterfly.core.ui.components.ButterflyPage
 import elieoko.hoshi.butterfly.core.ui.components.GlassCard
 import elieoko.hoshi.butterfly.core.ui.components.PinCard
 import elieoko.hoshi.butterfly.core.ui.components.SectionLabel
-import elieoko.hoshi.butterfly.core.ui.components.butterflyImageFor
+import elieoko.hoshi.butterfly.core.ui.components.butterflyImageUrlFor
 import elieoko.hoshi.butterfly.core.ui.feedback.LocalButterflyFeedback
 import elieoko.hoshi.butterfly.design.ButterflyColors
+import elieoko.hoshi.butterfly.design.SpiritualImagery
 
 @Composable
 fun Notes() {
@@ -42,7 +40,7 @@ fun Notes() {
     ButterflyPage(
         title = "Notes",
         subtitle = "Capture tes révélations, prières et insights bibliques.",
-        background = Res.drawable.couple,
+        backgroundUrl = SpiritualImagery.scriptureDesk,
     ) {
         GlassCard {
             SectionLabel("Nouvelle note")
@@ -89,7 +87,7 @@ fun Notes() {
                 title = "Note ${notes.size - index}",
                 subtitle = note,
                 height = if (index % 2 == 0) 170.dp else 150.dp,
-                image = butterflyImageFor(index),
+                imageUrl = butterflyImageUrlFor(index),
                 badge = if (index == 0) "Nouveau" else "Perso",
                 onClick = { feedback.toast("Note ouverte") },
             )
@@ -99,7 +97,7 @@ fun Notes() {
             title = "Astuce",
             subtitle = "Relie chaque note à un verset pour retrouver le contexte plus tard.",
             height = 140.dp,
-            image = Res.drawable.pray,
+            imageUrl = SpiritualImagery.prayerHands,
             badge = "Conseil",
         )
     }

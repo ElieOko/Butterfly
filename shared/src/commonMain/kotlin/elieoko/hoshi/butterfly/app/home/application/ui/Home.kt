@@ -10,11 +10,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import butterfly.shared.generated.resources.Res
-import butterfly.shared.generated.resources.butterfly
-import butterfly.shared.generated.resources.couple
-import butterfly.shared.generated.resources.hand
-import butterfly.shared.generated.resources.pray
 import elieoko.hoshi.butterfly.core.session.LocalButterflySession
 import elieoko.hoshi.butterfly.core.ui.components.ButterflyPage
 import elieoko.hoshi.butterfly.core.ui.components.ButterflySpacing
@@ -24,6 +19,7 @@ import elieoko.hoshi.butterfly.core.ui.components.PinCard
 import elieoko.hoshi.butterfly.core.ui.components.PillRow
 import elieoko.hoshi.butterfly.core.ui.components.SectionLabel
 import elieoko.hoshi.butterfly.core.ui.feedback.LocalButterflyFeedback
+import elieoko.hoshi.butterfly.design.SpiritualImagery
 
 @Composable
 fun Home(
@@ -40,7 +36,7 @@ fun Home(
     ButterflyPage(
         title = greeting,
         subtitle = "Un board spirituel calme : Bible, notes, méditation et communauté.",
-        background = Res.drawable.butterfly,
+        backgroundUrl = SpiritualImagery.heroHome,
     ) {
         Row(
             modifier = Modifier
@@ -57,7 +53,7 @@ fun Home(
             title = "Verset du jour",
             subtitle = "Ta parole est une lampe à mes pieds — Psaume 119:105",
             height = 240.dp,
-            image = Res.drawable.pray,
+            imageUrl = SpiritualImagery.crossLight,
             badge = "Aujourd'hui",
             onClick = {
                 feedback.toast("Verset sauvegardé dans tes notes.")
@@ -70,7 +66,7 @@ fun Home(
             title = "Bible",
             subtitle = "Lecture immersive et recherche rapide",
             height = 282.dp,
-            image = Res.drawable.hand,
+            imageUrl = SpiritualImagery.bibleOpen,
             badge = "À découvrir",
             onClick = onOpenBible,
         )
@@ -78,7 +74,7 @@ fun Home(
             title = "Méditation",
             subtitle = "Une session courte pour retrouver le calme",
             height = 282.dp,
-            image = Res.drawable.pray,
+            imageUrl = SpiritualImagery.meditationCalm,
             badge = "6 min",
             onClick = onOpenMeditation,
         )
@@ -86,7 +82,7 @@ fun Home(
             title = "Notes",
             subtitle = "Pose tes pensées, garde ce qui compte",
             height = 282.dp,
-            image = Res.drawable.couple,
+            imageUrl = SpiritualImagery.scriptureDesk,
             badge = "Journal",
             onClick = onOpenNotes,
         )
@@ -94,7 +90,7 @@ fun Home(
             title = "Groupes",
             subtitle = "Partage, prière et progression ensemble",
             height = 282.dp,
-            image = Res.drawable.butterfly,
+            imageUrl = SpiritualImagery.worshipCommunity,
             badge = "Communauté",
             onClick = onOpenGroups,
         )

@@ -15,10 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import butterfly.shared.generated.resources.Res
-import butterfly.shared.generated.resources.butterfly
-import butterfly.shared.generated.resources.couple
-import butterfly.shared.generated.resources.pray
 import elieoko.hoshi.butterfly.core.session.LocalButterflySession
 import elieoko.hoshi.butterfly.core.ui.components.ButterflyPage
 import elieoko.hoshi.butterfly.core.ui.components.GlassCard
@@ -26,6 +22,7 @@ import elieoko.hoshi.butterfly.core.ui.components.PinCard
 import elieoko.hoshi.butterfly.core.ui.components.SectionLabel
 import elieoko.hoshi.butterfly.core.ui.feedback.LocalButterflyFeedback
 import elieoko.hoshi.butterfly.design.ButterflyColors
+import elieoko.hoshi.butterfly.design.SpiritualImagery
 
 @Composable
 fun Account() {
@@ -37,7 +34,7 @@ fun Account() {
     ButterflyPage(
         title = if (session.isAuthenticated) "Mon compte" else "Créer un compte",
         subtitle = "Rejoins Butterfly pour synchroniser notes, méditations et groupes.",
-        background = Res.drawable.butterfly,
+        backgroundUrl = SpiritualImagery.natureSpirit,
     ) {
         if (session.isAuthenticated) {
             GlassCard {
@@ -72,7 +69,7 @@ fun Account() {
                 title = "Ton espace spirituel",
                 subtitle = "Tes notes et méditations restent privées jusqu'à partage en groupe.",
                 height = 170.dp,
-                image = Res.drawable.pray,
+                imageUrl = SpiritualImagery.prayerHands,
                 badge = "Privé",
             )
         } else {
@@ -110,7 +107,7 @@ fun Account() {
                 title = "Pourquoi un compte ?",
                 subtitle = "Sauvegarde tes notes, rejoins des groupes et suis ta progression.",
                 height = 190.dp,
-                image = Res.drawable.couple,
+                imageUrl = SpiritualImagery.coupleFaith,
                 badge = "Communauté",
             )
         }
