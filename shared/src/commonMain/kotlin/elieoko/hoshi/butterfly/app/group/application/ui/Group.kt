@@ -13,16 +13,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import butterfly.shared.generated.resources.Res
-import butterfly.shared.generated.resources.couple
 import elieoko.hoshi.butterfly.core.session.LocalButterflySession
 import elieoko.hoshi.butterfly.core.ui.components.ButterflyPage
 import elieoko.hoshi.butterfly.core.ui.components.GlassCard
 import elieoko.hoshi.butterfly.core.ui.components.PinCard
 import elieoko.hoshi.butterfly.core.ui.components.SectionLabel
-import elieoko.hoshi.butterfly.core.ui.components.butterflyImageFor
+import elieoko.hoshi.butterfly.core.ui.components.butterflyImageUrlFor
 import elieoko.hoshi.butterfly.core.ui.feedback.LocalButterflyFeedback
 import elieoko.hoshi.butterfly.design.ButterflyColors
+import elieoko.hoshi.butterfly.design.SpiritualImagery
 
 private data class ShareGroup(
     val id: String,
@@ -47,7 +46,7 @@ fun Group() {
     ButterflyPage(
         title = "Groupes",
         subtitle = "Rejoins un groupe de partage et lie ton compte à une communauté.",
-        background = Res.drawable.couple,
+        backgroundUrl = SpiritualImagery.worshipCommunity,
     ) {
         GlassCard {
             SectionLabel("Rejoindre avec un code")
@@ -99,7 +98,7 @@ fun Group() {
                 title = group.name,
                 subtitle = group.description + " • Code ${group.inviteCode}",
                 height = if (index % 2 == 0) 190.dp else 170.dp,
-                image = butterflyImageFor(index),
+                imageUrl = butterflyImageUrlFor(index),
                 badge = if (joined) "Membre" else "Rejoindre",
                 onClick = {
                     when {

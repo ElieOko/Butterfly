@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -34,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -50,6 +50,7 @@ import butterfly.shared.generated.resources.couple
 import butterfly.shared.generated.resources.hand
 import butterfly.shared.generated.resources.pray
 import elieoko.hoshi.butterfly.design.ButterflyColors
+import elieoko.hoshi.butterfly.design.SpiritualImagery
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -64,17 +65,43 @@ object ButterflySpacing {
 
 @Composable
 fun ImmersiveBackground(
-    image: DrawableResource,
+    imageUrl: String? = null,
+    image: DrawableResource? = null,
     dimAlpha: Float = 0.72f,
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxSize()) {
-        Image(
-            painter = painterResource(image),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop,
-        )
+        when {
+            imageUrl != null -> {
+                SpiritualNetworkImage(
+                    url = imageUrl,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop,
+                )
+            }
+            image != null -> {
+                Image(
+                    painter = painterResource(image),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop,
+                )
+            }
+            else -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            Brush.verticalGradient(
+                                listOf(
+                                    ButterflyColors.Midnight,
+                                    ButterflyColors.Night,
+                                ),
+                            ),
+                        ),
+                )
+            }
+        }
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -95,12 +122,16 @@ fun ImmersiveBackground(
 fun ButterflyPage(
     title: String,
     subtitle: String,
+    backgroundUrl: String? = null,
     background: DrawableResource = Res.drawable.butterfly,
     topContent: (@Composable () -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
-        ImmersiveBackground(image = background)
+        ImmersiveBackground(
+            imageUrl = backgroundUrl,
+            image = if (backgroundUrl == null) background else null,
+        )
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -146,6 +177,7 @@ fun PinCard(
     subtitle: String,
     modifier: Modifier = Modifier,
     height: Dp = 180.dp,
+    imageUrl: String? = null,
     image: DrawableResource = Res.drawable.pray,
     badge: String? = null,
     onClick: (() -> Unit)? = null,
@@ -161,23 +193,32 @@ fun PinCard(
         modifier = modifier
             .fillMaxWidth()
             .height(height)
+            .shadow(12.dp, RoundedCornerShape(22.dp), ambientColor = Color.Black.copy(0.35f))
             .graphicsLayer {
                 scaleX = scale
                 scaleY = scale
             }
-            .clip(RoundedCornerShape(18.dp))
-            .border(1.dp, Color.White.copy(alpha = 0.10f), RoundedCornerShape(18.dp))
+            .clip(RoundedCornerShape(22.dp))
+            .border(1.dp, Color.White.copy(alpha = 0.14f), RoundedCornerShape(22.dp))
             .clickable(enabled = onClick != null) {
                 pressed = !pressed
                 onClick?.invoke()
             },
     ) {
-        Image(
-            painter = painterResource(image),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop,
-        )
+        if (imageUrl != null) {
+            SpiritualNetworkImage(
+                url = imageUrl,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop,
+            )
+        } else {
+            Image(
+                painter = painterResource(image),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop,
+            )
+        }
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -185,8 +226,9 @@ fun PinCard(
                     Brush.verticalGradient(
                         listOf(
                             Color.Transparent,
-                            ButterflyColors.Night.copy(alpha = 0.12f),
-                            ButterflyColors.Night.copy(alpha = 0.92f),
+                            ButterflyColors.Night.copy(alpha = 0.08f),
+                            ButterflyColors.Night.copy(alpha = 0.55f),
+                            ButterflyColors.Night.copy(alpha = 0.94f),
                         ),
                     ),
                 ),
@@ -199,19 +241,30 @@ fun PinCard(
         ) {
             if (badge != null) {
                 Surface(
-                    color = Color.White.copy(alpha = 0.16f),
-                    shape = RoundedCornerShape(8.dp),
+                    color = ButterflyColors.SoftGold.copy(alpha = 0.22f),
+                    shape = RoundedCornerShape(10.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.18f)),
                 ) {
                     Text(
                         text = badge,
-                        modifier = Modifier.padding(horizontal = 9.dp, vertical = 4.dp),
+                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
                         style = MaterialTheme.typography.labelMedium,
-                        color = Color.White,
+                        color = ButterflyColors.SoftGold,
+                        fontWeight = FontWeight.SemiBold,
                     )
                 }
             }
-            Text(title, color = Color.White, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-            Text(subtitle, color = Color.White.copy(alpha = 0.88f), style = MaterialTheme.typography.bodySmall)
+            Text(
+                title,
+                color = Color.White,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+            )
+            Text(
+                subtitle,
+                color = Color.White.copy(alpha = 0.88f),
+                style = MaterialTheme.typography.bodySmall,
+            )
         }
     }
 }
@@ -222,10 +275,12 @@ fun GlassCard(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Surface(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .shadow(8.dp, RoundedCornerShape(20.dp)),
         color = ButterflyColors.Glass,
-        shape = RoundedCornerShape(18.dp),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.08f)),
+        shape = RoundedCornerShape(20.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.10f)),
     ) {
         Column(
             modifier = Modifier.padding(ButterflySpacing.lg),
@@ -249,9 +304,9 @@ fun PillRow(
         labels.forEach { label ->
             Surface(
                 shape = RoundedCornerShape(999.dp),
-                color = Color.White.copy(alpha = 0.1f),
+                color = Color.White.copy(alpha = 0.08f),
                 modifier = Modifier
-                    .border(1.dp, Color.White.copy(alpha = 0.12f), RoundedCornerShape(999.dp))
+                    .border(1.dp, Color.White.copy(alpha = 0.14f), RoundedCornerShape(999.dp))
                     .clickable { onSelected?.invoke(label) },
             ) {
                 Text(
@@ -279,8 +334,9 @@ fun SectionLabel(text: String) {
 @Composable
 fun MetricChip(label: String, value: String) {
     Surface(
-        color = Color.White.copy(alpha = 0.1f),
+        color = Color.White.copy(alpha = 0.08f),
         shape = RoundedCornerShape(18.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.12f)),
     ) {
         Column(
             modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
@@ -292,6 +348,8 @@ fun MetricChip(label: String, value: String) {
         }
     }
 }
+
+fun butterflyImageUrlFor(index: Int): String = SpiritualImagery.cardAt(index)
 
 fun butterflyImageFor(index: Int): DrawableResource = when (index % 6) {
     0 -> Res.drawable.butterfly

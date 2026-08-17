@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
@@ -152,24 +154,26 @@ private fun IosTabItem(
     selected: Boolean,
     onClick: () -> Unit,
 ) {
-    val bg = if (selected) Color.White.copy(alpha = 0.16f) else Color.Transparent
+    val bg = if (selected) Color.White.copy(alpha = 0.18f) else Color.Transparent
+    val iconColor = if (selected) ButterflyColors.SoftGold else Color.White.copy(alpha = 0.55f)
     val textColor = if (selected) Color.White else Color.White.copy(alpha = 0.62f)
 
     Column(
         modifier = Modifier
             .width(58.dp)
-            .height(48.dp)
+            .height(52.dp)
             .clip(RoundedCornerShape(18.dp))
             .background(bg)
             .clickable(onClick = onClick)
             .padding(vertical = 4.dp),
         verticalArrangement = Arrangement.Center,
+        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
     ) {
-        Text(
-            text = route.emoji,
-            modifier = Modifier.fillMaxWidth(),
-            color = textColor,
-            textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+        Icon(
+            imageVector = route.icon,
+            contentDescription = route.label,
+            modifier = Modifier.size(22.dp),
+            tint = iconColor,
         )
         Text(
             text = route.label,

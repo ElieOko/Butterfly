@@ -24,37 +24,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import butterfly.shared.generated.resources.Res
-import butterfly.shared.generated.resources.bible
-import butterfly.shared.generated.resources.butterfly
-import butterfly.shared.generated.resources.couple
 import elieoko.hoshi.butterfly.core.ui.components.ButterflySpacing
 import elieoko.hoshi.butterfly.core.ui.components.GlassCard
 import elieoko.hoshi.butterfly.core.ui.components.ImmersiveBackground
 import elieoko.hoshi.butterfly.design.ButterflyColors
-import org.jetbrains.compose.resources.DrawableResource
+import elieoko.hoshi.butterfly.design.SpiritualImagery
 
 private data class OnboardingStep(
     val title: String,
     val subtitle: String,
-    val image: DrawableResource,
+    val imageUrl: String,
 )
 
 private val onboardingSteps = listOf(
     OnboardingStep(
         title = "Bienvenue sur Butterfly",
         subtitle = "Une expérience spirituelle moderne pour lire, noter, méditer et grandir.",
-        image = Res.drawable.butterfly,
+        imageUrl = SpiritualImagery.natureSpirit,
     ),
     OnboardingStep(
         title = "Bible, notes & méditation",
         subtitle = "Des espaces clairs, immersifs et cohérents pour ta discipline quotidienne.",
-        image = Res.drawable.bible,
+        imageUrl = SpiritualImagery.bibleOpen,
     ),
     OnboardingStep(
         title = "Communauté & compte",
         subtitle = "Crée ton compte, rejoins un groupe et partage ta progression.",
-        image = Res.drawable.couple,
+        imageUrl = SpiritualImagery.coupleFaith,
     ),
 )
 
@@ -65,7 +61,7 @@ fun Onboarding(onFinish: () -> Unit) {
     val isLast = stepIndex == onboardingSteps.lastIndex
 
     Box(modifier = Modifier.fillMaxSize()) {
-        ImmersiveBackground(image = step.image, dimAlpha = 0.55f)
+        ImmersiveBackground(imageUrl = step.imageUrl, dimAlpha = 0.55f)
         Column(
             modifier = Modifier
                 .fillMaxSize()
